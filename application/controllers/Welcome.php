@@ -42,6 +42,6 @@ class Welcome extends CI_Controller
      */
     public function index()
     {
-        $this->blade->render();
+        return $this->blade->render();
     }
 }
