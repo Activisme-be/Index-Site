@@ -13,7 +13,7 @@ class Login extends MY_Controller
     // FIXME: Add translation files. TO get the flash session work.
     // FIXME: Add login view to the system.
     // FIXME: Add authencation create view.
-    // FIXME: Add the logged in middleware. 
+    // FIXME: Add the logged in middleware.
 
     /**
      * Authencated user session.
@@ -133,7 +133,7 @@ class Login extends MY_Controller
         $this->session->set_flashdata('class', $class);
         $this->session->set_flashdata('message', $message);
 
-        redirect($_SERVER['HTTP_REFERER']);
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
