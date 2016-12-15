@@ -7,6 +7,8 @@ class Welcome extends CI_Controller
 {
     /**
      * Welcome constructor.
+     *
+     * @return void.
      */
     public function __construct()
     {
@@ -33,13 +35,13 @@ class Welcome extends CI_Controller
     }
 
     /**
-     * Get thue index view for the website.
+     * Get thee index view for the website.
      *
      * @url    http://www.domain.tld
      * @return blade response.
      */
     public function index()
     {
-        $this->load->view('welcome_message');
+        $this->blade->render();
     }
 }
