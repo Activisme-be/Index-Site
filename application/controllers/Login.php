@@ -30,7 +30,7 @@ class Login extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library(['session', 'blade', 'form_validation']);
+        $this->load->library(['session', 'blade', 'email', 'form_validation']);
         $this->load->helper(['string', 'url', 'language']);
 
         $this->User = $this->session->userdata('logged_in');
@@ -109,7 +109,7 @@ class Login extends MY_Controller
                 foreach ($user->permissions as $perm) { // Set every key to the array.
                     array_push($permissions, $perm->role); // Push every key invidual to the permissions array.
                 }
-                
+
                 $authencation['id']     = $user->id;
                 $authencation['name']   = $user->name;
                 $authencation['email']  = $user->email;
@@ -137,11 +137,50 @@ class Login extends MY_Controller
      */
     public function reset()
     {
+        $this->form_validation->set_rules('email', 'Email', 'trim|required');
+
         if ($this->form_validation->run() === false) { // Form validation fails
-
+            $class   = 'alert alert-danger';
+            $message = lang('error-reset');
         } else { // Form validation passes.
+            $data['email'] = $this->input->post('email');
+            $data['pass']  = random_string('alnum', 16);
+            $data['user'] = Login::where('email', $data['email']);
 
+            if ($data['user']->update(['password' => md5($data['pass']) ])) { // User has been updated.
+                // Email init
+                $config['smtp_host'] = 'send.one.com';
+                $config['smtp_port'] = 465;
+                $config['mailtyp']   = 'html';
+                $config['charset']   = 'utf-8';
+
+                $this->email->initialize($config);
+
+                // Send the mail.
+                $this->email->from($this->config->item('dev_email'), $this->config->item('dev_email'));
+                $this->email->to($data['user']->email);
+                $this->email->subject($this->config->item('app_name') . ' - Reset wachtwoord.');
+                $this->email->message($this->blade->render('email/reset', $data));
+                $this->email->set_mail('html');
+            }
+
+            // Check if the email is send.
+            if (! @$this->email->send()) { // The email isn't send.
+                // show_error($this->email->print_debugger());
+
+                $class   = 'alert alert-danger';
+                $message = lang('error-send-reset');
+            } else { // The email is send.
+                $class   = 'alert alert-success';
+                $message = lang('success-reset');
+            }
         }
+
+        // Set flash messages.
+        $this->session->set_flashdata('class', $class);
+        $this->session->set_flashdata('message', $message);
+
+        return redirect($_SERVER['http_referer'])
     }
 
     /**
