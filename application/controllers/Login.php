@@ -100,7 +100,24 @@ class Login extends MY_Controller
             ->where('password', md5($password));
 
         if ($query->count() == 1) { // Result is found and now we can build up the session.
+            $authencation = []; // Empty session array.
+            $permissions  = []; // Empty permission array.
 
+            // Build up the session token.
+            foreach ($query->get() as $user) { // Define the data to the session array.
+                // Build up the permission array
+                foreach ($user->permissions as $perm) { // Set every key to the array.
+                    array_push($permissions, $perm->role); // Push every key invidual to the permissions array.
+                }
+                
+                $authencation['id']     = $user->id;
+                $authencation['name']   = $user->name;
+                $authencation['email']  = $user->email;
+                $authencation['roles']  = $permissions;
+            }
+
+            $this->session->set_userdata('logged_in', $authencation);
+            return true;
         } else { // There are no user found with the given data.
             $this->form_validation->set_message('check_database', lang('error-wrong-credentials'));
             return false;
