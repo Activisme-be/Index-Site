@@ -1,11 +1,24 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Welcome
+ */
 class Welcome extends CI_Controller
 {
-    // only create if you want to use, not compulsory.
-    // or return parent::middleware(); if you want to keep.
-    // or return empty array() and no middleware will run.
+    /**
+     * Welcome constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library(['blade']);
+    }
+
+    /**
+     * only create if you want to use, not compulsory.
+     * or return parent::middleware(); if you want to keep.
+     * or return empty array() and no middleware will run.
+     */
     protected function middleware()
     {
         /**
@@ -19,6 +32,12 @@ class Welcome extends CI_Controller
         return [];
     }
 
+    /**
+     * Get thue index view for the website.
+     *
+     * @url    http://www.domain.tld
+     * @return blade response.
+     */
     public function index()
     {
         $this->load->view('welcome_message');
