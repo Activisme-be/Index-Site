@@ -1,0 +1,22 @@
+{
+  "name": "index-site",
+  "version": "1.0.0",
+  "description": "Index site for http://www.activisme.be",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Activisme-be/Index-site.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Activisme-be/Index-site/issues"
+  },
+  "homepage": "https://github.com/Activisme-be/Index-site#readme",
+  "dependencies": {
+    "admin-lte": "^2.3.8"
+  }
+}
