@@ -70,7 +70,41 @@ class Login extends MY_Controller
      */
     public function verify()
     {
+        $this->form_validation->set_rules('email', 'Email', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
 
+        if ($this->form_validation->run() === false) { // Validation fails.
+            // printf(Validation_errors())  // For debugging propose
+            // die();                       // For debugging propose
+
+            $data['title'] = 'Login';
+            return $this->blade->render('auth/login', $data);
+        } else { // Validation Passes
+            return redirect('/backend');
+        }
+    }
+
+    /**
+     * Check the given input against the database.
+     *
+     * @param  string $password The user given password
+     * @return bool
+     */
+    public function check_database($pasword)
+    {
+        $input['email'] = $this->input->post('email');
+
+        $query = Login::where('email', $input['email'])
+            ->with('permissions')
+            ->where('blocked', 0)
+            ->where('password', md5($password));
+
+        if ($query->count() == 1) { // Result is found and now we can build up the session.
+
+        } else { // There are no user found with the given data.
+            $this->form_validation->set_message('check_database', lang('error-wrong-credentials'));
+            return false;
+        }
     }
 
     /**
@@ -86,7 +120,11 @@ class Login extends MY_Controller
      */
     public function reset()
     {
+        if ($this->form_validation->run() === false) { // Form validation fails
 
+        } else { // Form validation passes.
+
+        }
     }
 
     /**
