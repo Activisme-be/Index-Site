@@ -11,7 +11,16 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"require": {
-		"php": ">=5.2.4"
+		"php": ">=5.2.4",
+		"illuminate/database": "5.0.28",
+		"illuminate/events": "5.0.28"
+	},
+	"autoload": {
+		"classmap": [
+			"application/core",
+			"application/models",
+			"application/libraries"
+		]
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
