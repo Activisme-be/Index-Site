@@ -1,25 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends CI_Controller
+{
+    // only create if you want to use, not compulsory.
+    // or return parent::middleware(); if you want to keep.
+    // or return empty array() and no middleware will run.
+    protected function middleware()
+    {
+        /**
+         * Return the list of middlewares you want to be applied,
+         * Here is list of some valid options
+         *
+         * admin_auth                    // As used below, simplest, will be applied to all
+         * someother|except:index,list   // This will be only applied to posts()
+         * yet_another_one|only:index    // This will be only applied to index()
+         **/
+        return [];
+    }
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
+    public function index()
+    {
+        $this->load->view('welcome_message');
+    }
 }
