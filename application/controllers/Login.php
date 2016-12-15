@@ -14,6 +14,7 @@ class Login extends MY_Controller
     // FIXME: Add login view to the system.
     // FIXME: Add authencation create view.
     // FIXME: Add the logged in middleware.
+    // FIXME: Add the config variables to the platform config.
 
     /**
      * Authencated user session.
