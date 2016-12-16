@@ -29,6 +29,9 @@ class Events extends MY_Controller
     }
 
     /**
+     * Show a specific event.
+     *
+     * @url    GET|HEAD: 
      * @return blade view.
      */
     public function show()
@@ -57,7 +60,7 @@ class Events extends MY_Controller
      */
      public function update()
      {
-         
+
      }
 
     /**
@@ -65,7 +68,25 @@ class Events extends MY_Controller
      */
     public function store()
     {
+        if ($this->form_validation->run() === false) { // Validation fails
+            $class   = 'alert alert-danger';
+            $message = lang('event-store-error');
+        } else { // Validation passes
+            $input['date']        = $this->input->post('date');
+            $input['description'] = $this->input->post('description');
 
+            if (Event::create($input)) { // The event has been created.
+                $class   = 'alert alert-success';
+                $message = lang('event-store-success');
+            }
+        }
+
+        // Set the flash message.
+        $this->session->set_flashdata('class', $class);
+        $this->session->set_flashdata('message', $message);
+
+        // Redirect
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
@@ -73,6 +94,13 @@ class Events extends MY_Controller
      */
     public function destroy()
     {
+        $eventId = $this->uri->segment(3);
 
+        if (Event::destroy($eventId)) { // Event is deleted.
+            $this->session->set_flashdata('class', 'alert alert-success');
+            $this->session->set_flashdata('message', lang('even-delete-success'));
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 }
