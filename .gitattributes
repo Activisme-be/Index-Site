@@ -6,3 +6,4 @@
 /.gitignore         export-ignore
 /readme.md          export-ignore
 /package.json       export-ignore
+/gulpfile.js        export-ignore
