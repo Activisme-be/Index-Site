@@ -42,7 +42,6 @@ class Events extends MY_Controller
     /**
      * Create a new event.
      *
-     * 
      * @return blade view.
      */
     public function create()
