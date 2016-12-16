@@ -63,7 +63,8 @@ class Login extends MY_Controller
      */
     public function index()
     {
-        return $this->blade->render('auth/login');
+        $data['title'] = 'login';
+        return $this->blade->render('auth/login', $data);
     }
 
     /**
@@ -91,7 +92,7 @@ class Login extends MY_Controller
      * @param  string $password The user given password
      * @return bool
      */
-    public function check_database($pasword)
+    public function check_database($password)
     {
         $input['email'] = $this->input->post('email');
 
@@ -181,7 +182,7 @@ class Login extends MY_Controller
         $this->session->set_flashdata('class', $class);
         $this->session->set_flashdata('message', $message);
 
-        return redirect($_SERVER['http_referer'])
+        return redirect($_SERVER['http_referer']);
     }
 
     /**
