@@ -1,4 +1,4 @@
-a:3:{s:4:"time";i:1481915428;s:3:"ttl";i:3600;s:4:"data";s:3306:"<!DOCTYPE html>
+a:3:{s:4:"time";i:1481918887;s:3:"ttl";i:3600;s:4:"data";s:2939:"<!DOCTYPE html>
 <html lang="nl">
     <head>
         <meta charset="utf-8">
@@ -53,17 +53,6 @@ a:3:{s:4:"time";i:1481915428;s:3:"ttl";i:3600;s:4:"data";s:3306:"<!DOCTYPE html>
         </div>
 
         <?php //  JavaScript  ?>        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-        <script src="<?php echo  base_url('assets/js/bootstrap.js') ; ?>"></script>
-        <script src="<?php echo  base_url('assets/js/icheck.js') ; ?>"></script>
-
-        <script>
-            $(function () {
-                $('input').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                    increaseArea: '20%' // optional
-                });
-            });
-        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>";}
