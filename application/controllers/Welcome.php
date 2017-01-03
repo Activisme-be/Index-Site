@@ -6,7 +6,7 @@
 class Welcome extends CI_Controller
 {
     /** @var array $user The authencated user in the application. */
-    private $user;
+    public $user = [];
 
     /**
      * Welcome constructor.
@@ -14,14 +14,14 @@ class Welcome extends CI_Controller
      * @param  array $user The authencated user session.
      * @return void
      */
-    public function __construct($user)
+    public function __construct()
     {
-        parent::__constrcut();
-        $this->load->library();
-        $this->load->helper();
+        parent::__construct();
+        $this->load->library(['blade', 'session']);
+        $this->load->helper('url');
 
         // Param Init
-        $this->user = $user;
+        $this->user = $this->session->userdata('logged_in');
     }
 
     /**
